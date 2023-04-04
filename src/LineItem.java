@@ -1,34 +1,40 @@
+import java.text.DecimalFormat;
+
 public class LineItem extends Product{
 
     private int quantity;
     private double lineTotal;
 
-    public int getQuantity() {
+    public int getLineQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setLineQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public double getTotal() {
+    public double getLineTotal() {
         return lineTotal;
     }
 
-    public double calTotal(double price, int quantity) {
+    public double calLineTotal(double productPrice, int quantity) {
 
-        double total;
-        total = price * quantity;
+        double total = 0;
+        total = productPrice * quantity;
 
         return total;
     }
 
-    public void setTotal(double lineTotal) {
+    public void setLineTotal(double lineTotal) {
         this.lineTotal = lineTotal;
     }
 
-    public LineItem(String name, double price, int quantity, double lineTotal) {
-        super(name, price);
+    public LineItem(String productName, double productPrice, int quantity) {
+        super(productName, productPrice);
+        this.quantity = quantity;
+    }
+    public LineItem(String productName, double productPrice, int quantity, double lineTotal) {
+        super(productName, productPrice);
         this.quantity = quantity;
         this.lineTotal = lineTotal;
     }

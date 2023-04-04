@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Customer extends Address{
 
     private String name;
@@ -10,14 +12,16 @@ public class Customer extends Address{
         this.name = name;
     }
 
-    public Customer(String state, String city, String street, String zipCode, String name) {
+    public Customer(String name, String street, String city, String state, int zipCode) {
         super(state, city, street, zipCode);
         this.name = name;
     }
 
-    public String getFormatCust (String state, String city, String street, String zipCode, String name)
+    public String getFormatCust(String name, String street, String city, String state, int zipCode)
     {
-        String res = name + "\n" + street + "\n" + city + ", " + state + " " + zipCode;
+        String res = name + "\n" +
+                    street + "\n" +
+                    city + ", " + state + " " + zipCode;
 
         return  res;
     }
