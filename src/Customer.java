@@ -1,8 +1,9 @@
 import java.util.Objects;
 
-public class Customer extends Address{
+public class Customer{
 
     private String name;
+    private Address address;
 
     public String getName() {
         return name;
@@ -12,16 +13,22 @@ public class Customer extends Address{
         this.name = name;
     }
 
-    public Customer(String name, String street, String city, String state, int zipCode) {
+  /*  public Customer(String name, String street, String city, String state, int zipCode) {
         super(state, city, street, zipCode);
         this.name = name;
+    }*/
+
+    public Customer(String name, Address address){
+        this.name = name;
+        this.address = address;
+
     }
 
-    public String getFormatCust(String name, String street, String city, String state, int zipCode)
+    public String getFormatCust()
     {
         String res = name + "\n" +
-                    street + "\n" +
-                    city + ", " + state + " " + zipCode;
+        address.getStreet() + "\n" +
+        address.getCity() + ", " + address.getState() + " " + address.getZipCode();
 
         return  res;
     }
