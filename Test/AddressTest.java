@@ -9,8 +9,8 @@ class AddressTest {
     Address a2;
     @BeforeEach
     void setUp() {
-         a1 = new Address("OH", "Cincinnati", "1111 Alpine Ave.", 45231);
-         a2 = new Address("TX", "Dallas", "1202 Car Drive", 75195);
+         a1 = new Address("OH", "Cincinnati", "1111 Alpine Ave.", 2341);
+         a2 = new Address("TX", "Dallas", "1202 Car Drive", 45674);
     }
 
     @Test
@@ -48,7 +48,7 @@ class AddressTest {
 
     @Test
     void getZipCode() {
-        assertEquals(75195, a2.getZipCode());
+        assertEquals(45674, a2.getZipCode());
     }
 
     @Test
