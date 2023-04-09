@@ -4,16 +4,16 @@ import javax.swing.border.TitledBorder;
 import javax.swing.plaf.basic.BasicButtonListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 public class InvoiceRunner extends JFrame {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         InvoiceRunner Invoice = new InvoiceRunner();
     }
-    JPanel mainPnl, customerPnl, productPnl, displayPnl, controlPnl, controlPnl2, formatPnl;
-    JTextField custNameTF, custStreetTF, custCityTF, custStateTF, custZipTF, prodNameTF, prodCostTF, prodQuanTF;
-    JLabel custNameLbl, custStreetLbl, custCityLbl, custStateLbl, custZipLbl, prodNameLbl, prodCostLbl, prodQuanLbl;
+    JPanel mainPnl, customerPnl, itemPnl, displayPnl, controlPnl, controlPnl2, formatPnl;
+    JTextField custNameTF, custStreetTF, custCityTF, custStateTF, custZipTF, itemNameTF, itemCostTF, itemQuanTF;
+    JLabel custNameLbl, custStreetLbl, custCityLbl, custStateLbl, custZipLbl, itemNameLbl, itemCostLbl, itemQuanLbl;
     JButton custBtn, prodBtn, clearBtn, quitBtn;
     JTextArea textArea;
     JScrollPane pane;
@@ -25,15 +25,14 @@ public class InvoiceRunner extends JFrame {
     Address address;
 
     ArrayList<LineItem> lines = new ArrayList<>();
-
     public InvoiceRunner() {
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screenSize = kit.getScreenSize();
         int screenHeigh = screenSize.height;
         int screenWidth = screenSize.width;
 
-        setSize(765, 500);
-        setLocation(screenWidth / 4, (screenHeigh - 320) / 3);
+        setSize(920, 500);
+        setLocation(screenWidth / 1/5, (screenHeigh - 500) / 2);
 
         setTitle("Invoice");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -41,34 +40,32 @@ public class InvoiceRunner extends JFrame {
         createGUI();
         setVisible(true);
     }
-
     public void createGUI() {
         mainPnl = new JPanel();
         customerPnl = new JPanel();
-        productPnl = new JPanel();
+        itemPnl = new JPanel();
         displayPnl = new JPanel();
         formatPnl = new JPanel();
         controlPnl = new JPanel();
         controlPnl2 = new JPanel();
 
         mainPnl.add(customerPnl);
-        mainPnl.add(productPnl);
+        mainPnl.add(itemPnl);
         mainPnl.add(formatPnl);
         formatPnl.add(controlPnl);
         formatPnl.add(displayPnl);
         formatPnl.add(controlPnl2);
 
         add(mainPnl);
-        createCustomerPnl();
-        createProductPnl();
-        createDisplayPnl();
+        createCustomerInfoPnl();
+        createItemInfoPnl();
+        createInvoicePnl();
         createControlPnl();
         createControlPnl2();
     }
-
-    public void createCustomerPnl() {
+    public void createCustomerInfoPnl() {
         customerPnl.setLayout(new GridLayout(3, 2));
-        customerPnl.setBorder(new TitledBorder(new LineBorder(Color.BLACK, 1), "ADDRESS"));
+        customerPnl.setBorder(new TitledBorder(new LineBorder(Color.BLACK, 1), "ADDRESS INFORMATION"));
         customerPnl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         custNameLbl = new JLabel("Name: ", JLabel.RIGHT);
@@ -86,63 +83,61 @@ public class InvoiceRunner extends JFrame {
         custZipLbl = new JLabel("Zip Code: ", JLabel.RIGHT);
         custZipTF = new JTextField(7);
 
-
         customerPnl.add(custNameLbl);
         customerPnl.add(custNameTF);
+
         customerPnl.add(custStreetLbl);
         customerPnl.add(custStreetTF);
+
         customerPnl.add(custCityLbl);
         customerPnl.add(custCityTF);
+
         customerPnl.add(custStateLbl);
         customerPnl.add(custStateTF);
+
         customerPnl.add(custZipLbl);
         customerPnl.add(custZipTF);
     }
+    public void createItemInfoPnl() {
+        itemPnl.setBorder(new TitledBorder(new LineBorder(Color.BLACK, 1, true), "ITEM INFORMATION"));
+        itemPnl.setLayout(new GridLayout(1, 3));
+        itemPnl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    public void createProductPnl() {
+        itemNameLbl = new JLabel("Item Name: ", JLabel.RIGHT);
+        itemNameTF = new JTextField(7);
+        itemNameTF.setEnabled(false);
 
-        productPnl.setBorder(new TitledBorder(new LineBorder(Color.BLACK, 1, true), "Item Info"));
-        productPnl.setLayout(new GridLayout(1, 3));
-        productPnl.setAlignmentX(Component.CENTER_ALIGNMENT);
+        itemCostLbl = new JLabel("Cost: ", JLabel.RIGHT);
+        itemCostTF = new JTextField(7);
+        itemCostTF.setEnabled(false);
 
-        prodNameLbl = new JLabel("Item Name: ", JLabel.RIGHT);
-        prodNameTF = new JTextField(7);
-        prodNameTF.setEnabled(false);
+        itemQuanLbl = new JLabel("Amount: ", JLabel.RIGHT);
+        itemQuanTF = new JTextField(5);
+        itemQuanTF.setEnabled(false);
 
-        prodCostLbl = new JLabel("Cost: ", JLabel.RIGHT);
-        prodCostTF = new JTextField(7);
-        prodCostTF.setEnabled(false);
+        itemPnl.add(itemNameLbl);
+        itemPnl.add(itemNameTF);
 
-        prodQuanLbl = new JLabel("Amount: ", JLabel.RIGHT);
-        prodQuanTF = new JTextField(5);
-        prodQuanTF.setEnabled(false);
+        itemPnl.add(itemCostLbl);
+        itemPnl.add(itemCostTF);
 
-
-        productPnl.add(prodNameLbl);
-        productPnl.add(prodNameTF);
-        productPnl.add(prodCostLbl);
-        productPnl.add(prodCostTF);
-        productPnl.add(prodQuanLbl);
-        productPnl.add(prodQuanTF);
-
+        itemPnl.add(itemQuanLbl);
+        itemPnl.add(itemQuanTF);
     }
-
-    public void createDisplayPnl() {
-
+    public void createInvoicePnl() {
         textArea = new JTextArea(15, 50);
         textArea.setBackground(Color.WHITE);
         textArea.setEditable(false);
         textArea.setFont(new Font(Font.DIALOG_INPUT, Font.PLAIN, 14));
+        textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         pane = new JScrollPane(textArea);
 
         displayPnl.add(pane);
-
     }
-
     public void createControlPnl() {
         controlPnl.setLayout(new GridLayout(2, 1));
-        custBtn = new JButton("Add Customer");
+        custBtn = new JButton("Address");
         custBtn.addActionListener((ActionEvent ae) -> {
             try {
                 if (custNameTF.getText().isEmpty() || custStreetTF.getText().isEmpty() || custCityTF.getText().isEmpty() || custStateTF.getText().isEmpty() || custZipTF.getText().isEmpty()) {
@@ -163,15 +158,16 @@ public class InvoiceRunner extends JFrame {
             }
         });
 
-        prodBtn = new JButton("Add Item");
+        prodBtn = new JButton("Item");
         prodBtn.setEnabled(false);
         prodBtn.addActionListener((ActionEvent ae) -> {
             try {
-                if (prodNameTF.getText().isEmpty() || prodCostTF.getText().isEmpty() || prodQuanTF.getText().isEmpty()) {
+                if (itemNameTF.getText().isEmpty() || itemCostTF.getText().isEmpty() || itemQuanTF.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "One or more Item Info fields is empty. Please make sure you input data");
                 } else {
                     tempClear();
-                    displayProduct(new Product(prodNameTF.getText(), Double.valueOf(prodCostTF.getText())), Integer.valueOf(prodQuanTF.getText()));
+                    displayProduct(new Product(itemNameTF.getText(), Double.valueOf(itemCostTF.getText())), Integer.valueOf(itemQuanTF.getText()));
+                    tempClear2();
                 }
             }
             catch (NumberFormatException e) {
@@ -181,26 +177,6 @@ public class InvoiceRunner extends JFrame {
         controlPnl.add(custBtn);
         controlPnl.add(prodBtn);
     }
-
-    private void tempClear() {
-        textArea.setText(" ");
-    }
-
-    private void displayProduct(Product product, Integer prodQ) {
-        LineItem newItem = new LineItem(product, prodQ);
-
-        invoice.calcProduct(product, prodQ);
-
-        textArea.append(invoice.formatDisplay());
-    }
-
-    private void displayAddress(Address address,String cName) {
-        Customer c = new Customer(cName, address);
-        invoice = new Invoice(c);
-       textArea.append(invoice.formatDisplay());
-
-    }
-
     public void createControlPnl2() {
         controlPnl2.setLayout(new GridLayout(2, 1));
 
@@ -213,6 +189,26 @@ public class InvoiceRunner extends JFrame {
         controlPnl2.add(clearBtn);
         controlPnl2.add(quitBtn);
     }
+    private void displayAddress(Address address,String cName) {
+        Customer c = new Customer(cName, address);
+        invoice = new Invoice(c);
+        textArea.append(invoice.formatDisplay());
+    }
+    private void displayProduct(Product product, Integer prodQ) {
+        LineItem newItem = new LineItem(product, prodQ);
+
+        invoice.calcProduct(product, prodQ);
+
+        textArea.append(invoice.formatDisplay());
+    }
+    private void tempClear() {
+        textArea.setText(" ");
+    }
+    private void tempClear2(){
+        itemNameTF.setText("");
+        itemCostTF.setText("");
+        itemQuanTF.setText("");
+    }
     private void clearInvoice() {
         textArea.setText(" ");
         custNameTF.setText("");
@@ -221,9 +217,9 @@ public class InvoiceRunner extends JFrame {
         custStateTF.setText("");
         custZipTF.setText("");
 
-        prodNameTF.setText("");
-        prodCostTF.setText("");
-        prodQuanTF.setText("");
+        itemNameTF.setText("");
+        itemCostTF.setText("");
+        itemQuanTF.setText("");
 
         enableCustomer();
     }
@@ -236,9 +232,9 @@ public class InvoiceRunner extends JFrame {
 
         custBtn.setEnabled(false);
 
-        prodNameTF.setEnabled(true);
-        prodQuanTF.setEnabled(true);
-        prodCostTF.setEnabled(true);
+        itemNameTF.setEnabled(true);
+        itemQuanTF.setEnabled(true);
+        itemCostTF.setEnabled(true);
         prodBtn.setEnabled(true);
     }
     private void enableCustomer()
@@ -251,9 +247,9 @@ public class InvoiceRunner extends JFrame {
 
         custBtn.setEnabled(true);
 
-        prodNameTF.setEnabled(false);
-        prodQuanTF.setEnabled(false);
-        prodCostTF.setEnabled(false);
+        itemNameTF.setEnabled(false);
+        itemQuanTF.setEnabled(false);
+        itemCostTF.setEnabled(false);
         prodBtn.setEnabled(false);
     }
 }
