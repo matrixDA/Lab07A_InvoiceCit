@@ -9,10 +9,16 @@ class AddressTest {
     Address a2;
 
     @BeforeEach
+
     void setUp()
     {
         a1 = new Address("Ohio", "Cincinnati", "2121 Street", 45231);
         a2 = new Address("Texas", "Austin", "3454 Avenue", 77549);
+
+    void setUp() {
+         a1 = new Address("OH", "Cincinnati", "1111 Alpine Ave.", 2341);
+         a2 = new Address("TX", "Dallas", "1202 Car Drive", 45674);
+
     }
 
     @Test
@@ -52,7 +58,11 @@ class AddressTest {
 
     @Test
     void getZipCode() {
+
         assertEquals(77549, a2.getZipCode());
+
+        assertEquals(45674, a2.getZipCode());
+
     }
 
     @Test
