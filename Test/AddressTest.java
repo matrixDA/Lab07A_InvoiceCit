@@ -7,54 +7,67 @@ class AddressTest {
 
     Address a1;
     Address a2;
+
     @BeforeEach
+
+    void setUp()
+    {
+        a1 = new Address("Ohio", "Cincinnati", "2121 Street", 45231);
+        a2 = new Address("Texas", "Austin", "3454 Avenue", 77549);
+
     void setUp() {
          a1 = new Address("OH", "Cincinnati", "1111 Alpine Ave.", 2341);
          a2 = new Address("TX", "Dallas", "1202 Car Drive", 45674);
+
     }
 
     @Test
     void getState() {
-        assertEquals("OH", a1.getState());
+        assertEquals("Ohio", a1.getState());
     }
 
     @Test
     void setState() {
-        a1.setState("CA");
-        assertEquals("CA", a1.getState());
+        a2.setState("Nevada");
+        assertEquals("Nevada", a2.getState());
     }
 
     @Test
     void getCity() {
-        assertEquals("Dallas", a2.getCity());
+        assertEquals("Austin", a2.getCity());
+
     }
 
     @Test
     void setCity() {
-        a2.setCity("San Antonio");
-        assertEquals("San Antonio", a2.getCity());
+        a1.setCity("Los Angeles");
+        assertEquals("Los Angeles", a1.getCity());
     }
 
     @Test
     void getStreet() {
-        assertEquals("1111 Alpine Ave.", a1.getStreet());
+        assertEquals("2121 Street", a1.getStreet());
+
     }
 
     @Test
     void setStreet() {
-        a1.setStreet("3243 Davis Ave.");
-        assertEquals("3243 Davis Ave.", a1.getStreet());
+        a2.setStreet("4565 Greenville Ave.");
+        assertEquals("4565 Greenville Ave.", a2.getStreet());
     }
 
     @Test
     void getZipCode() {
+
+        assertEquals(77549, a2.getZipCode());
+
         assertEquals(45674, a2.getZipCode());
+
     }
 
     @Test
     void setZipCode() {
-        a2.setZipCode(34521);
-        assertEquals(34521, a2.getZipCode());
+        a1.setZipCode(11111);
+        assertEquals(11111, a1.getZipCode());
     }
-
 }

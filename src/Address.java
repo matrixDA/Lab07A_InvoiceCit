@@ -1,4 +1,8 @@
+
+public class Address{
+
 public class Address {
+
     private String state, city, street;
     private int zipCode;
 

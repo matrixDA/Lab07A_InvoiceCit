@@ -4,28 +4,34 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
-    Product p1, p2;
+
+    Product p1;
 
     @BeforeEach
-    void setUp() {
-        p1 = new Product("MacBook Air 2020", 1099);
-        p2 = new Product("Samsung Galaxy S23 Ultra", 1299);
+    void setUp()
+    {
+        p1 = new Product("AirPods", 199.99);
     }
 
     @Test
     void getProductName() {
-        assertEquals("Samsung Galaxy S23 Ultra", p2.getProductName());
+        assertEquals("AirPods", p1.getProductName());
     }
 
     @Test
     void setProductName() {
-        p1.setProductName("Iphone 13 Pro Max");
-        assertEquals("Iphone 13 Pro Max", p1.getProductName());
+        p1.setProductName("MacBook Pro");
+        assertEquals("MacBook Pro", p1.getProductName());
     }
 
     @Test
     void getProductPrice() {
-        assertEquals(1299, p2.getProductPrice());
+assertEquals(199.99, p1.getProductPrice());
     }
 
+    @Test
+    void setProductPrice() {
+        p1.setProductPrice(24.99);
+        assertEquals(24.99, p1.getProductPrice());
+    }
 }
